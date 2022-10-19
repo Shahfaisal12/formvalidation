@@ -19,7 +19,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 
 
-  //   ********************************** Styled ***************************************************
+//   ********************************** Styled ***************************************************
 const paperStyle = {
   padding: 20,
   width: 300,
@@ -39,52 +39,43 @@ const initialValues = {
 
 
 
-  //   ********************************** Main Function***************************************************
+//   ********************************** Main Function***************************************************
 const Signupform = () => {
 
 
-  
-  //   ********************************** Show Hide Password***************************************************
+
+  //   ********************************** Show Hide Password**********************************************
   const [showPassword, setShowPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState(false);
 
   const handleShowPassword = () => {
-    if(showPassword === false){
+    if (showPassword === false) {
       setShowPassword(true)
-    }else{
+    } else {
       setShowPassword(false)
     }
   }
- const handleConfirmPassword = () => {
-  if(confirmPassword === true){
-    setConfirmPassword(false)
-  }else{
-    setConfirmPassword(true)
-  }
+  const handleConfirmPassword = () => {
+    if (confirmPassword === true) {
+      setConfirmPassword(false)
+    } else {
+      setConfirmPassword(true)
+    }
 
- }
- const handleMouseDownPassword = (event) => {
-  event.preventDefault();
-};
+  }
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
   //   ********************************** Form Validations Using Formik ***************************************************
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
-  useFormik({
-    initialValues,
-    validationSchema: signUpSchema,
-    onSubmit: (values, action) => {
-      console.log(
-        "🚀 ~ file: Registration.jsx ~ line 11 ~ Registration ~ values",
-        values
-      );
-      action.resetForm();
-    },
-  });
+    useFormik({
+      initialValues,
+      validationSchema: signUpSchema,
+      onSubmit: (values, action) => {
+        action.resetForm();
+      },
+    });
   console.log(values)
-console.log(
-  "🚀 ~ file: Registration.jsx ~ line 25 ~ Registration ~ errors",
-  errors
-);
-
 
 
   //   ********************************** Return HTML Page ***************************************************
@@ -97,119 +88,119 @@ console.log(
           <h2>Sign Up</h2>
         </Grid>
         <form onSubmit={handleSubmit}>
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <TextField
-              label="First Name"
-              placeholder="Enter First Name"
-              type="text"
-              autoComplete="off"
-              name="firstName"
-              value={values.firstName}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            {errors.firstName && touched.firstName ? (
-              
-              <Typography color="error" variant="caption">{errors.firstName}</Typography>
-            ) : null}
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <TextField
+                label="First Name"
+                placeholder="Enter First Name"
+                type="text"
+                autoComplete="off"
+                name="firstName"
+                value={values.firstName}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              {errors.firstName && touched.firstName ? (
+
+                <Typography color="error" variant="caption">{errors.firstName}</Typography>
+              ) : null}
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                label="Last Name"
+                placeholder="Enter Last Name"
+                type="text"
+                autoComplete="off"
+                name="lastName"
+                value={values.lastName}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              {errors.lastName && touched.lastName ? (
+                <Typography color="error" variant="caption">{errors.lastName}</Typography>
+              ) : null}
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Email"
+                placeholder="Enter Email"
+                type="email"
+                name="email"
+                autoComplete="off"
+                value={values.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              {errors.email && touched.email ? (
+                <Typography color="error" variant="caption">{errors.email}</Typography>
+              ) : null}
+            </Grid>
+            <Grid item xs={12}>
+              <Input
+                fullWidth
+                name="password"
+                type={showPassword ? 'text' : 'password'}
+                placeholder="Enter Password"
+                autoComplete="on"
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>}
+              />
+              {errors.password && touched.password ? (
+                <Typography color="error" variant="caption">{errors.password}</Typography>
+              ) : null}
+            </Grid>
+            <Grid item xs={12}>
+              <Input
+                fullWidth
+                name="confirmPassword"
+                type={confirmPassword ? 'text' : 'password'}
+                placeholder="Confirm Password"
+                autoComplete="on"
+                value={values.confirmPassword}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleConfirmPassword}
+                    >
+                      {confirmPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>}
+              />
+              {errors.confirmPassword && touched.confirmPassword ? (
+                <Typography color="error" variant="caption">{errors.confirmPassword}</Typography>
+              ) : null}
+            </Grid>
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={<Checkbox name="checkedB" color="primary" />}
+                label="Remember me"
+              />
+            </Grid>
           </Grid>
-          <Grid item xs={6}>
-            <TextField
-              label="Last Name"
-              placeholder="Enter Last Name"
-              type="text"
-              autoComplete="off"
-              name="lastName"
-              value={values.lastName}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            {errors.lastName && touched.lastName ? (
-              <Typography color="error" variant="caption">{errors.lastName}</Typography>
-            ) : null}
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-            fullWidth 
-              label="Email"
-              placeholder="Enter Email"
-              type="email"
-              name="email"
-              autoComplete="off"
-              value={values.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            {errors.email && touched.email ? (
-              <Typography color="error" variant="caption">{errors.email}</Typography>
-            ) : null}
-          </Grid>
-          <Grid item xs={12}>
-            <Input 
-            fullWidth 
-            name="password" 
-            type={showPassword ? 'text': 'password' }
-            placeholder="Enter Password"
-            autoComplete="on"
-            value={values.password}
-            onChange={handleChange}
-            onBlur={handleBlur} 
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>}
-            />
-            {errors.password && touched.password ? (
-              <Typography color="error" variant="caption">{errors.password}</Typography>
-            ) : null}
-          </Grid>
-          <Grid item xs={12}>
-            <Input 
-            fullWidth 
-            name="confirmPassword" 
-            type={confirmPassword ? 'text': 'password' }
-            placeholder="Confirm Password"
-            autoComplete="on"
-            value={values.confirmPassword}
-            onChange={handleChange}
-            onBlur={handleBlur} 
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleConfirmPassword}
-                >
-                  {confirmPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>}
-            />
-            {errors.confirmPassword && touched.confirmPassword ? (
-              <Typography color="error" variant="caption">{errors.confirmPassword}</Typography>
-            ) : null}
-          </Grid>
-          <Grid item xs={12}>
-            <FormControlLabel
-              control={<Checkbox name="checkedB" color="primary" />}
-              label="Remember me"
-            />
-          </Grid>
-        </Grid>
-        <Button className="input-button" type="submit" variant="contained" style={btnstyle} fullWidth>
-          Sign Up
-        </Button>
-        <Typography style={{paddingBottom:'30px'}}>
-          Do you have an account ?
-          <Link href="/loginform" style={linkstyle}>
-            Sigin Page
-          </Link>
-        </Typography>
+          <Button className="input-button" type="submit" variant="contained" style={btnstyle} fullWidth>
+            Sign Up
+          </Button>
+          <Typography style={{ paddingBottom: '30px' }}>
+            Do you have an account ?
+            <Link href="/loginform" style={linkstyle}>
+              Sigin Page
+            </Link>
+          </Typography>
         </form>
       </Paper>
     </Grid>
